@@ -26,6 +26,7 @@ const TiketSaya = () => {
 
   useEffect(() => {
     tiketSaya()
+    // eslint-disable-next-line
   }, [])
 
 

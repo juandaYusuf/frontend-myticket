@@ -12,7 +12,7 @@ const NavigationBar = () => {
     const [userProfilePicture, setUserProfilePicture] = useState("")
     const [fullName, setfullName] = useState("")
     const [showAlertIfArtikelDeleted, setShowAlertIfArtikelDeleted] = useState(true)
-    const [profileData, setProfileData] = useState(0)
+    const [profileData, setProfileData] = useState(JSON.parse(window.localStorage.getItem('data')))
     const navigateTo = useNavigate()
 
     const titleNama = () => {
@@ -29,19 +29,23 @@ const NavigationBar = () => {
         navigateTo('/Profile')
     }
 
-    const logOut = () => {
-        window.localStorage.clear()
-        navigateTo('/SignInUp')
-    }
-
     const onClickLogo = () => {
         navigateTo('/Home')
     }
 
     useEffect(() => {
-        titleNama()
+        const loadTitleNama = () => {
+            titleNama()
+        }
+        loadTitleNama()
+        // eslint-disable-next-line
+    }, []);
+
+    useEffect(() => {
         setProfileData(JSON.parse(window.localStorage.getItem('data')))
-    }, [titleNama]);
+    }, [])
+
+
 
     return (
         <>
@@ -61,26 +65,31 @@ const NavigationBar = () => {
                             {/* <Link style={{ color: "white" }} to="/About" className="nav-link">About</Link> */}
                         </Nav>
                         <Nav>
+                            <div className="saldo-saya">
+                                <span className="saldo-saya-content">$</span>
+                            </div>
                             <Dropdown >
-                                <Dropdown.Toggle style={{ padding: "3px", paddingRight: "10px", color: "black", borderRadius: "100px" }} variant="light" id="dropdown-basic">
-                                    {
-                                        (userProfilePicture)
-                                            ?
-                                            <img
-                                                src={userProfilePicture}
-                                                style={{ objectFit: "cover", backgroundColor: "grey", height: "35px", width: "35px", borderRadius: "100%", cursor: "pointer", border: "solid 1px grey", marginRight: "10px" }} />
-                                            :
-                                            <Spinner animation="border" variant="primary" />
-                                    }
-                                    <span style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", marginRight: "10px" }}>
+                                <div className="dropdown-toggle-container">
+                                    <Dropdown.Toggle variant="" id="dropdown-basic">
                                         {
-                                            fullName
+                                            (userProfilePicture)
+                                                ?
+                                                <img
+                                                    src={userProfilePicture}
+                                                    style={{ objectFit: "cover", backgroundColor: "black", height: "35px", width: "35px", borderRadius: "100%", cursor: "pointer", border: "solid 2px grey", marginRight: "10px" }} alt=" " />
+                                                :
+                                                <Spinner animation="border" variant="primary" />
                                         }
-                                    </span>
-                                </Dropdown.Toggle>
+                                        <span className="username-on-navbar">
+                                            {
+                                                fullName
+                                            }
+                                        </span>
+                                    </Dropdown.Toggle>
+                                </div>
                                 <Dropdown.Menu style={{ padding: "0px 2px 2px 2px" }} className='scaled-transition shadow-prev-container'>
                                     <Dropdown.Item onClick={() => { onClickProfile() }}> Profile </Dropdown.Item>
-                                    <Dropdown.Item style={{ backgroundColor: "rgb(220, 53, 69)", color: "white", borderRadius: "5px" }} onClick={() => {setModalShow(true)}}>Logout </Dropdown.Item>
+                                    <Dropdown.Item style={{ backgroundColor: "rgb(220, 53, 69)", color: "white", borderRadius: "5px" }} onClick={() => { setModalShow(true) }}>Logout </Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
                         </Nav>

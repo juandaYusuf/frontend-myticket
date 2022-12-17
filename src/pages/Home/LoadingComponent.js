@@ -1,8 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Card, Placeholder } from 'react-bootstrap'
 
 const LoadingComponent = () => {
-    const [mapComponent, setmapComponent] = useState(["item1", "item2", "item3"]);
 
     return (
         <>

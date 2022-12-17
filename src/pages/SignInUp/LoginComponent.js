@@ -7,18 +7,18 @@ import { useNavigate } from "react-router-dom"
 
 const LoginComponent = () => {
 
-    //? statemanagement data user
+    //* statemanagement data user
     const { userID, setUserID } = useContext(UserContext);
 
-    //? get value dari login component
+    //* get value dari login component
     const [getEmail, setEmail] = useState("");
     const [getPwd, setPwd] = useState("");
     const [showAlert, setShowAlert] = useState("sukses");
 
-    // //? Navigator
+    //* Navigator
     const navigateTo = useNavigate();
 
-    //? request data ke API
+    //* request data ke API
     const login = async () => {
         const userData = {
             "email": getEmail,
@@ -46,7 +46,7 @@ const LoginComponent = () => {
     }
 
     const handleKeyPressLogin = (e) => {
-        if (e.charCode == 13) {
+        if (e.charCode === 13) {
             e.preventDefault()
             login()
         }
@@ -57,6 +57,7 @@ const LoginComponent = () => {
         if (userID > 0) {
             navigateTo('/Home/')
         }
+        // eslint-disable-next-line
     }, [userID]);
 
     //?  save data to localstorage
@@ -67,12 +68,14 @@ const LoginComponent = () => {
                 window.localStorage.clear()
             }
         }
+        // eslint-disable-next-line
     }, [userID]);
 
     //?  clear localstorage ketika logout
     useEffect(() => {
         setUserID(0)
         window.localStorage.clear()
+        // eslint-disable-next-line
     }, []);
 
     //* Render component

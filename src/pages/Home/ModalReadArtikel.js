@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Modal, Button } from 'react-bootstrap';
+import React from 'react'
+import { Modal } from 'react-bootstrap';
 
 const ModalReadArtikel = (props) => {
 
@@ -17,11 +17,8 @@ const ModalReadArtikel = (props) => {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <img src={props.thumbnail} className='thumbnail-artikel shadow-prev-container' />
-                    <p>
-                        {
-                            props.content
-                        }
+                    <img src={props.thumbnail} className='thumbnail-artikel shadow-prev-container' alt='Gambar tidak tersedia'/>
+                    <p>{props.content}
                     </p>
                 </Modal.Body>
                 <Modal.Footer>

@@ -8,14 +8,23 @@ const EmptyPage = (props) => {
 
 
     useEffect(() => {
-        if(fromWhere === "tiketSaya"){ 
-            setTitle("Tidak ada tiket")
-            setBody("Anda belum memiliki tiket! Silahkan beli tiket sesuai tujuan")
-        }else if(fromWhere ==="artikelCollections"){
-            setTitle("Tidak ada artikel")
-            setBody("Anda belum memiliki artikel! Silahkan buat artikel anda sendiri.")
+        const checkFromWhereValue = () => {
+            if (fromWhere === "tiketSaya") {
+                setTitle("Tidak ada tiket")
+                setBody("Anda belum memiliki tiket! Silahkan beli tiket sesuai tujuan")
+            } else if (fromWhere === "artikelCollections") {
+                setTitle("Tidak ada artikel")
+                setBody("Anda belum memiliki artikel! Silahkan buat artikel anda sendiri.")
+            }
         }
+        checkFromWhereValue()
+        // eslint-disable-next-line
     }, []);
+
+    useEffect(() => {
+        setFromWhere(props.fromwhere)
+        // eslint-disable-next-line
+    }, [])
 
 
     return (

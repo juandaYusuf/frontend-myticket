@@ -8,6 +8,7 @@ import ModalUploadPhoto from './MoodalUploadPhoto'
 import { useNavigate } from 'react-router-dom'
 import ArtikelSaya from './ArtikelSaya'
 import ModalUpdateArtikel from './ModalUpdateArtikel'
+import { Col } from 'react-bootstrap'
 
 
 const ProfileComponent = () => {
@@ -57,22 +58,22 @@ const ProfileComponent = () => {
 
   //!call profile title name 
   useEffect(() => {
-    titleNama()
-    setFullName(fullName)
-    setemail(email)
-    setnoTelepon(noTelepon)
-  }, [
-    titleNama,
-    setFullName,
-    setemail,
-    setnoTelepon
-  ])
+    const displayUserIdentity = () => {
+      titleNama()
+      setFullName(fullName)
+      setemail(email)
+      setnoTelepon(noTelepon)
+    }
 
+    displayUserIdentity()
+    // eslint-disable-next-line
+  }, [titleNama, setFullName, setemail, setnoTelepon])
+  
   //! Load data from local storage
   useEffect(() => {
     setUserID(JSON.parse(window.localStorage.getItem('data')))
+    // eslint-disable-next-line
   }, []);
-
 
   return (
     <>
@@ -91,6 +92,7 @@ const ProfileComponent = () => {
                   setTitleModalUpload("Upload photo sampul")
                 }}
                 style={{ width: '35px', height: '35px' }}
+                alt="Gambar tidak tersedia"
               />
               <b onClick={() => {
                 setTitleModalUpload("Upload photo sampul")
@@ -105,7 +107,7 @@ const ProfileComponent = () => {
                 setModalShow(true)
                 setShowThumnail("thumbnail")
                 setPreviewImage(userProfilePicture)
-              }} />
+              }} alt="Gambar tidak tersedia"/>
               <div className='upload-profile-photo shadow-prev-container' onClick={() => {
                 setModalUpload(true)
                 setTitleModalUpload("Upload photo profile")
@@ -129,12 +131,16 @@ const ProfileComponent = () => {
               <span style={{ color: "grey", fontSize: "15px" }}>
                 {noTelepon}
               </span>
+              <Col>
+                <div className='btn btn-danger m-1 shadow-prev-container scale-down-animation' style={{transition: "500ms"}}> Topup </div>
+                <div className='btn btn-success m-1 shadow-prev-container scale-down-animation' style={{transition: "500ms"}} > Saldo</div>
+              </Col>
             </div>
           </div>
         </div>
       </div>
 
-      <div className='menu-container scaled-transition' >
+      <div className='menu-container scaled-transition mt-3' >
         <div className='act-container'>
 
           <div className='menu-edit shadow-prev-container' onClick={() => {

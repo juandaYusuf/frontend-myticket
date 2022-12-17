@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Card, Collapse, Dropdown, Placeholder, Toast, ToastContainer } from 'react-bootstrap'
+import { Card, Collapse, Dropdown, Placeholder } from 'react-bootstrap'
 import axios from 'axios'
 import UserContext from '../../context/Context'
 import ModalUpdateArtikel from './ModalUpdateArtikel'
@@ -87,16 +87,19 @@ const ArtikelCollections = () => {
         getMyArtikel()
         if (refreshArtikelCollections === true) {
             setRefreshArtikelCollections(false)
+            // eslint-disable-next-line
         }
+        // eslint-disable-next-line
     }, [refreshArtikelCollections]);
 
     useEffect(() => {
         getMyArtikel()
+        // eslint-disable-next-line
     }, []);
 
     useEffect(() => {
-        getMyArtikel()
         getUser()
+        // eslint-disable-next-line
     }, []);
 
     return (
@@ -109,7 +112,7 @@ const ArtikelCollections = () => {
                     }}
                     aria-controls="example-collapse-text"
                     aria-expanded={open}
-                    style={{ backgroundColor: "grey", color: "black", width: "100%", cursor: "pointer", backgroundColor: "mistyrose", borderBottom: `${hideBorderBottom}` }}>
+                    style={{ backgroundColor: "salmon", color: "black", width: "100%", cursor: "pointer", borderBottom: `${hideBorderBottom}` }}>
                     <div style={{ display: "flex", justifyContent: "space-between", alignContent: "center" }}>
                         <span style={{ margin: "10px" }}>Koleksi artikel saya</span>
                         <span style={{ margin: "10px" }}>🔖</span>
@@ -142,8 +145,8 @@ const ArtikelCollections = () => {
                                             </Card>
                                             :
                                             myArtikel.map((result) => {
-                                                return <div className='scaled-transition' >
-                                                    <Card key={result.id} style={{ margin: "10px" }}>
+                                                return <div className='scaled-transition' key={result.id.toString()} >
+                                                    <Card style={{ margin: "10px" }}>
                                                         <Card.Header>
                                                             <div style={{ display: "flex", justifyContent: "space-between", alignContent: "center" }}>
                                                                 <h4>{result.title}</h4>
@@ -153,7 +156,7 @@ const ArtikelCollections = () => {
                                                                     setArtikelTitle(result.title)
                                                                     setArtikelContent(result.isi)
                                                                 }}>
-                                                                    <Dropdown.Toggle variant="" id="dropdown-basic" />
+                                                                    <Dropdown.Toggle variant=""/>
                                                                     <Dropdown.Menu>
                                                                         <Dropdown.Item onClick={() => {
                                                                             setModalShow(true)
@@ -175,7 +178,7 @@ const ArtikelCollections = () => {
                                                                             setModalShow(true)
                                                                             setOpenImageArtikel(result.thumbnail)
                                                                             setShowThumnail("thumbnail")
-                                                                        }} className='thumbnail-artikel shadow-prev-container' />
+                                                                        }} className='thumbnail-artikel shadow-prev-container' alt='Gambar tidak tersedia'/>
                                                                     </div>
                                                                     <p style={{ textAlign: "justify", textJustify: "inter-word" }}>
                                                                         {result.isi}

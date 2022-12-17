@@ -42,7 +42,7 @@ function EditProfile(props) {
         noTelepon === "" ||
         password === "" ||
         jenisKelamin === ""
-        ) {
+      ) {
         setShowAlert("gagal")
       } else {
         updateData()
@@ -77,6 +77,7 @@ function EditProfile(props) {
   useEffect(() => {
     profileUser()
     refreshName()
+    // eslint-disable-next-line
   }, [])
 
   useEffect(() => {

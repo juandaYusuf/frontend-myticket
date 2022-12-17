@@ -35,14 +35,14 @@ const Home = () => {
             {
                 (isLoading)
                     ?
-                    <span>
+                    <section>
                         <section className="artikel-card-container">
                             <h1 style={{ color: "DodgerBlue" }}> <b> ARTIKEL </b></h1>
                             <div className="artikel-card">
                                 <LoadingComponent />
                             </div>
                         </section>
-                    </span>
+                    </section>
                     :
                     <section className="artikel-card-container scaled-transition">
                         <h1 style={{ color: "DodgerBlue" }}> <b> ARTIKEL </b></h1>

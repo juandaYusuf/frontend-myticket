@@ -113,6 +113,7 @@ const CreateArtikel = () => {
             updateThumbnailArtikel()
             setRefreshArtikelCollections(true)
         }
+        // eslint-disable-next-line
     }, [thumbnailArtikel]);
 
     useEffect(() => {
@@ -135,7 +136,7 @@ const CreateArtikel = () => {
 
                     aria-controls="example-collapse-text"
                     aria-expanded={open}
-                    style={{ backgroundColor: "grey", color: "black", width: "100%", cursor: "pointer", backgroundColor: "AntiqueWhite", borderBottom: `${hideBorderBottom}` }}
+                    style={{ color: "black", width: "100%", cursor: "pointer", backgroundColor: "AntiqueWhite", borderBottom: `${hideBorderBottom}` }}
                 >
                     <div style={{ display: "flex", justifyContent: "space-between", alignContent: "center" }}>
                         <span style={{ margin: "10px" }}>Buat artikel baru</span>
@@ -164,7 +165,7 @@ const CreateArtikel = () => {
                                                 (image !== "")
                                                 &&
                                                 <span className="shadow-prev-container" style={{ display: "flex", backgroundColor: "lightgray", flexDirection: "column", width: "350px", padding: "20px", margin: "10px", borderRadius: "10px" }}>
-                                                    <img className='shadow-prev-container thumbnail-artikel' src={image} />
+                                                    <img className='shadow-prev-container thumbnail-artikel' src={image} alt="Gambar tidak tersedia" />
                                                     <Button
                                                         className='shadow-prev-container'
                                                         variant={changeButtonTheme}

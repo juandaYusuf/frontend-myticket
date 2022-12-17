@@ -2,7 +2,6 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { Modal, Button, Form, Alert, InputGroup } from "react-bootstrap";
 import UserContext from "../../context/Context";
-import ModalUpdateArtikel from "./ModalUpdateArtikel";
 
 const ModalUploadPhoto = (props) => {
 
@@ -41,14 +40,14 @@ const ModalUploadPhoto = (props) => {
     }
 
     const handleKeyPressCurrentPassword = (e) => {
-        if (e.charCode == 13) {
+        if (e.charCode === 13) {
             e.preventDefault()
             checkPwdByID()
         }
     }
 
     const handleKeyPressUpdatePassword = (e) => {
-        if (e.charCode == 13) {
+        if (e.charCode === 13) {
             e.preventDefault()
             passwordConfirmation()
         }
@@ -184,6 +183,7 @@ const ModalUploadPhoto = (props) => {
         if (profilePicture) {
             updateProfilePictureHandling()
         }
+        // eslint-disable-next-line
     }, [profilePicture]);
 
 
@@ -191,6 +191,7 @@ const ModalUploadPhoto = (props) => {
         if (bannerPicture) {
             updateBannerPictureHandling()
         }
+        // eslint-disable-next-line
     }, [bannerPicture]);
 
     return (
@@ -350,7 +351,7 @@ const ModalUploadPhoto = (props) => {
                                             "modal-preview-banner"
                                     } src={
                                         image
-                                    } alt="No image preview" />
+                                    } alt="Gambar tidak tersedia" />
                                     :
                                     null
                                 :

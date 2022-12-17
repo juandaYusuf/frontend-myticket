@@ -54,11 +54,13 @@ const TicketComponent = (props) => {
     }
     
     useEffect(() => {
-        showTiketSaya()
+        if(props.fromwhere === "tiketSaya"){
+            showTiketSaya()
+            getAuthor()
+        }
         setMytiketID(props.mytiketid)
-        getAuthor()
+        // eslint-disable-next-line
     }, [])
-
 
 
     return (
@@ -72,7 +74,7 @@ const TicketComponent = (props) => {
                 (props.fromwhere === "pemesanan")
                 &&
                 //   Pemesanan
-                <div className='ticket-card scaled-transition shadow-prev-container'>
+                <div className='ticket-card scaled-transition shadow-prev-container scale-up-animation'>
                     <br />
                     <div className='nama-kereta'>
                         <h4><b> {props.namakereta} </b></h4>
@@ -115,7 +117,7 @@ const TicketComponent = (props) => {
                         <h6>Jumlah Gerbong {jumlahGerbong}</h6>
                         <p>{kelasKereta}</p>
                     </div>
-                    <img src='https://barcode.tec-it.com/barcode.ashx?data=978020137962&code=EAN13&translate-esc=true&color=ffffff&bgcolor=0d6dfd' />
+                    <img src='https://barcode.tec-it.com/barcode.ashx?data=978020137962&code=EAN13&translate-esc=true&color=ffffff&bgcolor=0d6dfd' alt='Gambar tidak tersedia'/>
                     <div className='Keberangkatan-kereta'>
                         <div className='asal'>
                             <b>{stsAsal}</b>

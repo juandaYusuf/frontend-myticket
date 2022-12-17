@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { Modal, Button, Form, Col, Alert } from 'react-bootstrap'
+import { Modal, Button, Form, Alert } from 'react-bootstrap'
 
 const ModalUpdateArtikel = (props) => {
 
@@ -9,7 +9,6 @@ const ModalUpdateArtikel = (props) => {
     const [thumbnailArtikel, setThumbnailArtikel] = useState("")
     const [image, setImage] = useState("")
     const [uploadImage, setUploadImage] = useState("")
-    const [fileTypeHandling, setFileTypeHandling] = useState(true)
     const [changeButtonTheme, setChangeButtonTheme] = useState("primary");
     const [showAlert, setShowAlert] = useState(false);
 
@@ -38,13 +37,11 @@ const ModalUpdateArtikel = (props) => {
             ||
             typeOfFile === "image/png"
         ) {
-            setFileTypeHandling(true)
             setImage(prev)
             setUploadImage(f)
             setChangeButtonTheme("primary")
             setShowAlert(false)
         } else {
-            setFileTypeHandling(false)
             e.target.value = ""
             setImage("")
         }
@@ -88,12 +85,14 @@ const ModalUpdateArtikel = (props) => {
         if (thumbnailArtikel !== "" && image !== "") {
             updateThumbnailArtikel()
         }
+        // eslint-disable-next-line
     }, [thumbnailArtikel]);
 
 
     useEffect(() => {
         setJudulArtikel(props.artikeltitle)
         setContentArtikel(props.artikelcontent)
+        // eslint-disable-next-line
     }, [props.artikeltitle, props.artikelcontent]);
 
     return (
@@ -115,7 +114,7 @@ const ModalUpdateArtikel = (props) => {
                         <div>
                             <Modal.Body style={{ backgroundColor: "black", borderRadius: "7px" }}>
                                 <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
-                                    <img src={props.thumbnail} style={{ backgroundColor: "black", borderRadius: "10px" }} />
+                                    <img src={props.thumbnail} style={{ backgroundColor: "black", borderRadius: "10px" }} alt="Gambar tidak tersedia" />
                                     <br />
                                     <div style={{ color: "white", height: "auto", width: "auto", display: "flex", justifyContent: "center", alignItems: "center" }}>
                                         <span onClick={props.onHide} style={{ cursor: "pointer" }}>
@@ -147,7 +146,7 @@ const ModalUpdateArtikel = (props) => {
                                                 (image !== "")
                                                 &&
                                                 <span className="shadow-prev-container" style={{ display: "flex", backgroundColor: "lightgray", flexDirection: "column", width: "350px", padding: "20px", margin: "10px", borderRadius: "10px" }}>
-                                                    <img className='shadow-prev-container thumbnail-artikel' src={image} />
+                                                    <img className='shadow-prev-container thumbnail-artikel' src={image} alt="Gambar tidak tersedia" />
                                                     <Button
                                                         className='shadow-prev-container'
                                                         variant={changeButtonTheme}
