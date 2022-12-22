@@ -49,7 +49,7 @@ code {
   text-overflow: ellipsis;
   margin-right: 10px;
   transition: 300ms;
-  font-size: 12px;
+  font-weight: bold;
   font-size: var(--showUsername);
   opacity: var(--txtOpacity);
 }
@@ -67,11 +67,12 @@ code {
   --textColorSaldoSaya: white;
   --shadowOfBox: 0px 0px 29px 0px rgba(0, 0, 0, 0) inset;
   --shadowOfWebKit: 0px 0px 29px 0px rgba(0, 0, 0, 0) inset;
+  --hideTxtSalso:none;
 }
 
 .saldo-saya:hover {
   height: 58px;
-  width: 100px;
+  width: 150px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -82,6 +83,12 @@ code {
   --textColorSaldoSaya: black;
   --shadowOfBox: 2px 2px 7px 1px rgba(0, 0, 0, 0.644) inset;
   --shadowOfWebKit: 2px 2px 7px 1px rgba(0, 0, 0, 0.644) inset;
+  --hideTxtSalso:flex;
+}
+
+.txt-saldo-saya{
+  margin-left: 10px;
+  display: var(--hideTxtSalso);
 }
 
 .saldo-saya-content {
@@ -91,6 +98,7 @@ code {
   justify-content: center;
   align-items: center;
   transition: 300ms;
+  overflow: hidden;
   border: 2px solid rgb(172, 172, 172);
   font-weight: bold;
   border-radius: var(--borderRadiusSaldoSaya);
@@ -166,6 +174,87 @@ code {
   100% {
     -webkit-transform: scale(1);
     transform: scale(1);
+  }
+}
+
+
+.typewriter-animation-1 {
+  display: flex;
+  overflow: hidden;
+  border-right: .15em solid black;
+  white-space: nowrap;
+  margin: 0 auto;
+  letter-spacing: .15em;
+  animation:
+    typing 3.5s steps(40, end),
+    blink-caret .75s step-end infinite;
+}
+
+/* The typing effect */
+@keyframes typing {
+  from {
+    width: 0
+  }
+
+  to {
+    width: 90%
+  }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+
+  from,
+  to {
+    border-color: transparent
+  }
+
+  50% {
+    border-color: black;
+  }
+
+  100% {
+    border-color: rgba(0, 0, 0, 0);
+  }
+}
+
+.typewriter-animation-2 {
+  display: flex;
+  overflow: hidden;
+  border-right: .15em solid black;
+  white-space: nowrap;
+  margin: 0 auto;
+  letter-spacing: .15em;
+  animation:
+    typing2 3.5s steps(40, end),
+    blink-caret2 .75s step-end infinite;
+}
+
+/* The typing effect */
+@keyframes typing2 {
+  from {
+    width: 0
+  }
+
+  to {
+    width: 65%
+  }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret2 {
+
+  from,
+  to {
+    border-color: transparent
+  }
+
+  50% {
+    border-color: black;
+  }
+
+  100% {
+    border-color: rgba(0, 0, 0, 0);
   }
 }
 
@@ -979,6 +1068,28 @@ code {
   -webkit-box-orient: vertical;
 }
 
+
+.saldo-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.saldo-content .nominal-saldo {
+  font-weight: bold;
+  color: red;
+  font-size: 20px;
+}
+
+.saldo-content .note-saldo {
+  color: grey;
+}
+
+
+.isanswercorrect-container {
+  display: flex;
+}
+
+
 /* responsif */
 @media only screen and (max-width: 600px) {
   .card-login {
@@ -1091,6 +1202,89 @@ code {
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+
+  .typewriter-animation-1 {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    overflow: visible;
+    white-space: pre-line;
+    margin: 0 auto;
+    letter-spacing: .15em;
+    animation:
+      typing 3.5s steps(40, end),
+      blink-caret .75s step-end infinite;
+  }
+
+  /* The typing effect */
+  @keyframes typing {
+    from {
+      width: 100%
+    }
+
+    to {
+      width: 100%
+    }
+  }
+
+  /* The typewriter cursor effect */
+  @keyframes blink-caret {
+
+    from,
+    to {
+      border-color: transparent
+    }
+
+    50% {
+      border-color: rgba(0, 0, 0, 0);
+    }
+
+    100% {
+      border-color: rgba(0, 0, 0, 0);
+    }
+  }
+
+
+  .typewriter-animation-2 {
+    display: flex;
+    align-items: flex-end;
+    /* flex-direction: column; */
+    overflow: visible;
+    white-space: pre-line;
+    margin: 0 auto;
+    letter-spacing: .15em;
+    animation:
+      typing 3.5s steps(40, end),
+      blink-caret .75s step-end infinite;
+  }
+
+  /* The typing effect */
+  @keyframes typing2 {
+    from {
+      width: 100%
+    }
+
+    to {
+      width: 100%
+    }
+  }
+
+  /* The typewriter cursor effect */
+  @keyframes blink-caret2 {
+
+    from,
+    to {
+      border-color: transparent
+    }
+
+    50% {
+      border-color: rgba(0, 0, 0, 0);
+    }
+
+    100% {
+      border-color: rgba(0, 0, 0, 0);
+    }
   }
 
 

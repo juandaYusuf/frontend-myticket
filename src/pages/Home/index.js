@@ -8,7 +8,7 @@ import LoadingComponent from "./LoadingComponent"
 const Home = () => {
 
     const [artikels, setArtikels] = useState([])
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(true)
 
 
     const getAllArtikel = () => {
@@ -27,7 +27,6 @@ const Home = () => {
         getAllArtikel()
     }, [])
 
-
     return (
         <>
             <NavigationBar />
@@ -45,11 +44,11 @@ const Home = () => {
                     </section>
                     :
                     <section className="artikel-card-container scaled-transition">
-                        <h1 style={{ color: "DodgerBlue" }}> <b> ARTIKEL </b></h1>
+                        <h1 style={{ color: "DodgerBlue" }}> <b> <i className="bi bi-stickies"></i>  ARTIKEL </b></h1>
                         <div className="artikel-card">
                             {
                                 artikels.map((artikel) => {
-                                    return <ArtikelCard key={artikel.id} title={artikel.title} content={artikel.isi} useridofartikel={artikel.user_id} thumbnail={artikel.thumbnail}/>
+                                    return <ArtikelCard key={artikel.id} title={artikel.title} content={artikel.isi} useridofartikel={artikel.user_id} thumbnail={artikel.thumbnail} />
                                 })
                             }
                         </div>

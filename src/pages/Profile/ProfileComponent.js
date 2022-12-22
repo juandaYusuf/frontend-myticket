@@ -9,11 +9,13 @@ import { useNavigate } from 'react-router-dom'
 import ArtikelSaya from './ArtikelSaya'
 import ModalUpdateArtikel from './ModalUpdateArtikel'
 import { Col } from 'react-bootstrap'
+import ModalSaldo from './ModalSaldo'
+import ModalTopUp from './ModalTopUp'
 
 
 const ProfileComponent = () => {
 
-  const { userID, setUserID } = useContext(UserContext)
+  const { userID } = useContext(UserContext)
   const [fullName, setFullName] = useState("")
   const [email, setemail] = useState("")
   const [noTelepon, setnoTelepon] = useState("")
@@ -25,6 +27,8 @@ const ProfileComponent = () => {
   const [userProfilePicture, setUserProfilePicture] = useState("")
   const [userBannerPicture, setUserBannerPicture] = useState("")
   const [modalShow, setModalShow] = useState(false)
+  const [modalShowSaldo, setModalShowSaldo] = useState(false)
+  const [modalShowTopUp, setmodalShowTopUp] = useState(false)
   const [showThumnail, setShowThumnail] = useState("thumbnail")
   const [previewImage, setPreviewImage] = useState("")
   const navigateTo = useNavigate()
@@ -68,19 +72,19 @@ const ProfileComponent = () => {
     displayUserIdentity()
     // eslint-disable-next-line
   }, [titleNama, setFullName, setemail, setnoTelepon])
-  
+
   //! Load data from local storage
-  useEffect(() => {
-    setUserID(JSON.parse(window.localStorage.getItem('data')))
-    // eslint-disable-next-line
-  }, []);
+  // useEffect(() => {
+  //   setUserID(JSON.parse(window.localStorage.getItem('data')))
+  //   // eslint-disable-next-line
+  // }, []);
 
   return (
     <>
-      <div className='profile-container scaled-transition '>
+      <div className='profile-container scaled-transition'>
         <div className='profile-banner shadow-prev-container' style={{ backgroundImage: `url(${userBannerPicture})` }}>
           <div className='icon-edit-banner-container'>
-            <div style={{ cursor: "pointer", height: "100%", width: "100%"}} onClick={() => {
+            <div style={{ cursor: "pointer", height: "100%", width: "100%" }} onClick={() => {
               setModalShow(true)
               setShowThumnail("thumbnail")
               setPreviewImage(userBannerPicture)
@@ -107,7 +111,7 @@ const ProfileComponent = () => {
                 setModalShow(true)
                 setShowThumnail("thumbnail")
                 setPreviewImage(userProfilePicture)
-              }} alt="Gambar tidak tersedia"/>
+              }} alt="Gambar tidak tersedia" />
               <div className='upload-profile-photo shadow-prev-container' onClick={() => {
                 setModalUpload(true)
                 setTitleModalUpload("Upload photo profile")
@@ -126,14 +130,18 @@ const ProfileComponent = () => {
                 }
               </span>
               <span style={{ color: "grey", fontWeight: "bold", textTransform: "lowercase", fontSize: "15px" }}>
-                {email}
+              <i className="bi bi-envelope-at-fill"></i> {email}
               </span>
               <span style={{ color: "grey", fontSize: "15px" }}>
-                {noTelepon}
+              <i className="bi bi-telephone-fill"></i> {noTelepon}
               </span>
               <Col>
-                <div className='btn btn-danger m-1 shadow-prev-container scale-down-animation' style={{transition: "500ms"}}> Topup </div>
-                <div className='btn btn-success m-1 shadow-prev-container scale-down-animation' style={{transition: "500ms"}} > Saldo</div>
+                <div className='btn btn-danger m-1 shadow-prev-container scale-down-animation'
+                  style={{ transition: "500ms" }}
+                  onClick={() => { setmodalShowTopUp(true) }}> Topup <i className="bi bi-currency-exchange"></i>  </div>
+                <div className='btn btn-success m-1 shadow-prev-container scale-down-animation'
+                  style={{ transition: "500ms" }}
+                  onClick={() => { setModalShowSaldo(true) }}> Saldo <i className="bi bi-wallet2"></i> </div>
               </Col>
             </div>
           </div>
@@ -141,13 +149,13 @@ const ProfileComponent = () => {
       </div>
 
       <div className='menu-container scaled-transition mt-3' >
-        <div className='act-container'>
+        <div className='act-container mt-3'>
 
           <div className='menu-edit shadow-prev-container' onClick={() => {
             setisEditProfile('editProfile')
             setmenuTitle("EDIT PROFILE")
           }}>
-            Edit Profile
+            Edit Profile 
           </div>
 
           <div className='menu-tiket shadow-prev-container' onClick={() => {
@@ -168,7 +176,27 @@ const ProfileComponent = () => {
         <div className='isi-menu scaled-transition shadow-prev-container'>
           <div className='scaled-transition' style={{ display: "flex" }}>
             <h1 style={{ color: "grey", fontWeight: "bold" }}>
-              {menuTitle}
+              {
+                (menuTitle === "EDIT PROFILE")
+                ?
+                <span>
+                  <i className="bi bi-pencil-square"></i> {menuTitle}
+                </span>
+                : 
+                (menuTitle === "TIKET SAYA")
+                ?
+                  <span>
+                    <i className="bi bi-ticket-detailed"></i> {menuTitle}
+                  </span>
+                :
+                (menuTitle === "ARTIKEL SAYA")
+                ?
+                  <span>
+                    <i className="bi bi-stickies"></i> {menuTitle}
+                  </span>
+                :null
+              
+              }
             </h1>
           </div>
           <hr />
@@ -185,8 +213,8 @@ const ProfileComponent = () => {
                 &&
                 <ArtikelSaya />
           }
-          
-          <div className='btn btn-danger shadow-prev-container' onClick={() => { logOut() }}> LOGOUT</div>
+
+          <div className='btn btn-danger shadow-prev-container' onClick={() => { logOut() }}> <i className="bi bi-box-arrow-left"></i> LOGOUT</div>
           <hr />
           <div style={{ display: "flex", justifyContent: "end" }
           }>
@@ -216,6 +244,14 @@ const ProfileComponent = () => {
         thumbnail={previewImage}
         isshowthumbnail={showThumnail}
         onHide={() => setModalShow(false)} />
+
+      <ModalSaldo
+        show={modalShowSaldo}
+        onHide={() => setModalShowSaldo(false)} />
+
+        <ModalTopUp
+          show={modalShowTopUp}
+          onHide={() => setmodalShowTopUp(false)}/>
     </>
   )
 }

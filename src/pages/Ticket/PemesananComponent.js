@@ -89,7 +89,7 @@ function PemesananComponent() {
         <>
             <div className='tiket-container'>
                 <div className='form-pemesanan scaled-transition shadow-prev-container'>
-                    <h1 style={{ color: "white" }}> <b className='my-ticket'>MyTicket</b>  | Beli tiket</h1>
+                    <h1 style={{ color: "white" }}> <b className='my-ticket'>MyTicket</b>  | <i className="bi bi-ticket-detailed-fill"></i> Beli tiket</h1>
                     <hr style={{ color: "white" }} />
                     <Row className="g-2">
                         <Col md>
@@ -122,7 +122,7 @@ function PemesananComponent() {
                                 formValidation()
                             }}
                             className='btn btn-warning'>
-                            <p style={{ margin: "5px" }}>Cari & pesan tiket</p>
+                            <p style={{ margin: "5px" }}> <i className="bi bi-search"></i> Cari & pesan tiket</p>
                         </Button>
                     </Row>
                 </div>

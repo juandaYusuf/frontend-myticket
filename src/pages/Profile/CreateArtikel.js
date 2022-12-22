@@ -49,8 +49,6 @@ const CreateArtikel = () => {
         } else {
             setAlertIfFormIsEmpty(true)
         }
-
-
     }
 
     const handleChangeImagePreview = (e) => {
@@ -126,7 +124,7 @@ const CreateArtikel = () => {
 
     return (
         <>
-            <div style={{ border: "solid 1px grey", borderRadius: "10px", overflow: "hidden" }} className="scaled-transition shadow-prev-container">
+            <div style={{ border: "solid 1px grey", borderRadius: "10px", overflow: "hidden", marginBottom: "10px" }} className="scaled-transition shadow-prev-container">
                 <div
                     as={Col}
                     onClick={() => {

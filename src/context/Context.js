@@ -1,11 +1,20 @@
-import React, {createContext,useState} from 'react'
+import React, {createContext,useEffect,useState} from 'react'
 
 const UserContext = createContext()
 
 export const UserContextProvider = (props) => {
     const [userID, setUserID] = useState(0)
+    const [userSaldo, setUserSaldo] = useState(0)
     const [showFloatingAlert, setShowFloatingAlert] = useState(false)
     const [refreshArtikelCollections, setRefreshArtikelCollections] = useState(false)
+
+    useEffect(() => {
+        setUserID(JSON.parse(window.localStorage.getItem('data')))
+
+        // eslint-disable-next-line
+    }, [])
+    
+    
 
     return (
         <UserContext.Provider value={{
@@ -14,7 +23,9 @@ export const UserContextProvider = (props) => {
             showFloatingAlert,
             setShowFloatingAlert,
             refreshArtikelCollections,
-            setRefreshArtikelCollections
+            setRefreshArtikelCollections,
+            userSaldo, 
+            setUserSaldo
         }}>
             {props.children}
         </UserContext.Provider>

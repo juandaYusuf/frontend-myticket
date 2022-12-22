@@ -20,7 +20,6 @@ const EmptyPage = (props) => {
         checkFromWhereValue()
         // eslint-disable-next-line
     }, []);
-
     useEffect(() => {
         setFromWhere(props.fromwhere)
         // eslint-disable-next-line
@@ -39,3 +38,4 @@ const EmptyPage = (props) => {
 }
 
 export default EmptyPage
+

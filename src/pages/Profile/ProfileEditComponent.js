@@ -89,16 +89,13 @@ function EditProfile(props) {
     setJenisKelamin(jenisKelamin)
   }, [fullName, email, alamat, noTelepon, password, jenisKelamin]);
 
-
-
-
   return (
     <>
       <div className='scaled-transition'>
         <Form >
           <div className='profile-form-row'>
             <Form.Group as={Col} controlId="formGridEmail">
-              <Form.Label >Nama Lengkap</Form.Label>
+              <Form.Label ><i className="bi bi-credit-card-2-front-fill"></i> Nama Lengkap</Form.Label>
               <Form.Control
                 className='mr-3'
                 type="text"
@@ -117,7 +114,7 @@ function EditProfile(props) {
             </Form.Group>
             <span className='m-2' />
             <Form.Group as={Col} controlId="formGridPassword">
-              <Form.Label>Email address</Form.Label>
+              <Form.Label> <i className="bi bi-envelope-at-fill"></i> Email address</Form.Label>
               <Form.Control
                 type="email"
                 placeholder={email}
@@ -125,13 +122,13 @@ function EditProfile(props) {
                 onChange={(e) => setEmail(e.target.value)}
               />
               <Form.Text className="text-muted">
-                Sebaiknya tidak menggunakan email utama anda
+              <i className="bi bi-journals"></i> Sebaiknya tidak menggunakan email utama anda
               </Form.Text>
             </Form.Group>
           </div>
 
           <Form.Group className="mb-2" controlId="formGridAddress1">
-            <Form.Label className='mt-1'>Alamat</Form.Label>
+            <Form.Label className='mt-1'> <i className="bi bi-geo-alt-fill"></i> Alamat</Form.Label>
             <Form.Control
               type="text"
               placeholder={alamat}
@@ -142,7 +139,7 @@ function EditProfile(props) {
 
           <div className='profile-form-row'>
             <Form.Group as={Col} controlId="formGridCity">
-              <Form.Label>No HP</Form.Label>
+              <Form.Label> <i className="bi bi-telephone-fill"></i> No HP</Form.Label>
               <Form.Control
                 type="text"
                 placeholder={noTelepon}
@@ -152,7 +149,7 @@ function EditProfile(props) {
             </Form.Group>
             <span className='m-2' />
             <Form.Group as={Col} controlId="formGridZip">
-              <Form.Label>Password</Form.Label>
+              <Form.Label> <i className="bi bi-lock-fill"></i> Password</Form.Label>
               <div className='btn btn-primary'
                 style={
                   {
@@ -177,8 +174,9 @@ function EditProfile(props) {
             (jenisKelamin) === "Laki-laki"
               ?
               <Form.Group as={Col} controlId="man">
-                <Form.Label className='mt-3'>Jenis Kelamin</Form.Label>
+                <Form.Label className='mt-3'> <i className="bi bi-gender-ambiguous"></i> Jenis Kelamin</Form.Label>
                 <Form.Select
+                  disabled
                   aria-label="Default select example"
                   value={jenisKelamin}
                   onChange={(e) => {
@@ -187,6 +185,9 @@ function EditProfile(props) {
                   <option value="Laki-laki">Laki-laki</option>
                   <option value="Perempuan">Perempuan</option>
                 </Form.Select>
+                <Form.Text className="text-muted">
+                <i className="bi bi-journals"></i> Anda tidak dapat merubah jenis kelamin.
+                </Form.Text>
               </Form.Group>
               :
               <Form.Group as={Col} controlId="woman">
@@ -200,6 +201,9 @@ function EditProfile(props) {
                   <option value="Perempuan">Perempuan</option>
                   <option value="Laki-laki">Laki-laki</option>
                 </Form.Select>
+                <Form.Text className="text-muted">
+                  Anda tidak dapat merubah jenis kelamin.
+                </Form.Text>
               </Form.Group>
           }
           <br />
@@ -227,7 +231,9 @@ function EditProfile(props) {
                 onClick={() => {
                   formValidation()
                 }} >
-                Simpan edit data
+                <span>
+                  <i className="bi bi-box-arrow-down"></i> Simpan edit data
+                </span>
               </div>
             </Row>
           </div>
