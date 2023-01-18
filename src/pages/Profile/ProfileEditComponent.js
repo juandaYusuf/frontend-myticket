@@ -4,9 +4,12 @@ import { Form, Col, Row, Alert } from "react-bootstrap"
 import UserContext from '../../context/Context';
 import ModalUploadPhoto from './MoodalUploadPhoto';
 
-function EditProfile(props) {
+function EditProfile() {
 
   const { userID } = useContext(UserContext)
+  const { setRefreshFullName } = useContext(UserContext)
+  const { setRefreshEmail } = useContext(UserContext)
+  const { setRefreshNoTelepon } = useContext(UserContext)
   const [fullName, setFullName] = useState("")
   const [email, setEmail] = useState("")
   const [alamat, setAlamat] = useState("")
@@ -28,7 +31,6 @@ function EditProfile(props) {
       setPassword(response.data.password)
       setJenisKelamin(response.data.jenisKelamin)
     })
-    props.refreshTitle()
   }
 
   const formValidation = () => {
@@ -53,6 +55,19 @@ function EditProfile(props) {
     }
   }
 
+  
+  const refreshName = () => {
+    axios.get(`http://127.0.0.1:8000/profile/${userID}`).then((response) => {
+      setFullName(response.data.fullname)
+      setEmail(response.data.email)
+      setNoTelepon(response.data.noTelepon)
+      setRefreshFullName(response.data.fullname)
+      setRefreshEmail(response.data.email)
+      setRefreshNoTelepon(response.data.noTelepon)
+    })
+  }
+
+
   const updateData = () => {
     axios.put(`http://127.0.0.1:8000/update/${userID}`, {
       "fullname": fullName,
@@ -63,14 +78,11 @@ function EditProfile(props) {
       "jenisKelamin": jenisKelamin,
       "profilPhoto": "",
       "profilBannerPhoto": ""
-    })
-  }
-
-  const refreshName = () => {
-    axios.get(`http://127.0.0.1:8000/profile/${userID}`).then((response) => {
-      setFullName(response.data.fullname)
-      setEmail(response.data.email)
-      setNoTelepon(response.data.noTelepon)
+    }).then((response) => {
+      console.log(response)
+      if(response.data !== null){
+        refreshName()
+      }
     })
   }
 

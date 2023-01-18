@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
+import UserContext from '../../context/Context';
 import LoginComponent from './LoginComponent';
 import RegisterComponent from './RegisterComponent';
 
 const SignInUp = () => {
 
+    const {setprofilePictureUpdater} = useContext(UserContext)
     const [IsRegister, setIsRegister] = useState(false);
     const [CardHeader, setCardHeader] = useState("Login");
     const [ButtonLabel, setButtonLabel] = useState("Daftar");
@@ -23,6 +25,12 @@ const SignInUp = () => {
             setCssClassForRegisterCard("card-container")
         }
     }
+
+    useEffect(() => {
+        setprofilePictureUpdater("")
+        // eslint-disable-next-line
+    }, [])
+    
 
     return (
             <div className={CssClassForRegisterCard}>

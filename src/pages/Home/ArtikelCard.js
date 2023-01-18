@@ -30,7 +30,7 @@ const ArtikelCard = (props) => {
 
     return (
         <>
-            <div className='scaleup-while-hover'>
+            <div className='scaleup-while-hover scaled-transition'>
                 <Card className="shadow-prev-container">
                     <Card.Img variant="top" src={props.thumbnail} style={{ width: "286px", height: "180px", backgroundColor: "grey", cursor: "pointer" }} onClick={() => { readArtikel() }}/>
                     <Card.Body>
@@ -49,9 +49,10 @@ const ArtikelCard = (props) => {
                             Created By: <cite title="Source Title" >{author}</cite>
                         </footer>
                         <Container className='d-flex gap-3'>
-                            <i className="bi bi-chat text-success" style={{ overflow: "hidden", cursor: "pointer" }}></i>
                             <i className="bi bi-heart text-danger" style={{ overflow: "hidden", cursor: "pointer" }}></i>
                             <i className="bi bi-heart-fill text-danger" style={{ overflow: "hidden", cursor: "pointer" }}></i>
+                            <i className="bi bi-chat text-success" style={{ overflow: "hidden", cursor: "pointer" }} onClick={props.comment}></i>
+                            <i className="bi bi-send-fill text-primary" style={{ overflow: "hidden", cursor: "pointer" }}></i>
                         </Container>
                     </Card.Body>
                 </Card>

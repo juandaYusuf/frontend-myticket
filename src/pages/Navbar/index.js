@@ -9,6 +9,7 @@ import ModalConfirmLogout from "./ModalConfirmLogout"
 const NavigationBar = () => {
 
     const { userID } = useContext(UserContext)
+    const { profilePictureUpdater } = useContext(UserContext)
     const { showFloatingAlert, setShowFloatingAlert } = useContext(UserContext)
     const { userSaldo, setUserSaldo } = useContext(UserContext)
     const [modalShow, setModalShow] = useState(false)
@@ -29,6 +30,8 @@ const NavigationBar = () => {
         })
     }
 
+
+
     const onClickProfile = () => {
         navigateTo('/Profile')
     }
@@ -38,10 +41,7 @@ const NavigationBar = () => {
     }
 
     useEffect(() => {
-        const loadTitleNama = () => {
-            titleNama()
-        }
-        loadTitleNama()
+        titleNama()
         // eslint-disable-next-line
     }, []);
 
@@ -49,15 +49,18 @@ const NavigationBar = () => {
         setProfileData(JSON.parse(window.localStorage.getItem('data')))
     }, [])
 
+
+
+    // !SALDO
     useEffect(() => {
         const mySaldo = () => {
             const apiURL = `http://127.0.0.1:8000/saldo/?userID=${userID}`
             axios.get(apiURL).then((response) => {
-                if(response.data !== null){
+                if (response.data !== null) {
                     setUserSaldo(response.data.saldo)
                 }
             }).catch((err) => {
-                alert (`Server tidak merespon...==> ${err.message} `)
+                alert(`Server tidak merespon...==> ${err.message} `)
             })
         }
         mySaldo()
@@ -83,7 +86,7 @@ const NavigationBar = () => {
                         </Nav>
                         <Nav>
                             <div className="saldo-saya">
-                                <span className="saldo-saya-content text-dark" onClick={() => {setModalShowSaldo(true)}}><i className="bi bi-wallet2"> </i> <span className="txt-saldo-saya" > Rp.{userSaldo}</span></span>
+                                <span className="saldo-saya-content text-dark" onClick={() => { setModalShowSaldo(true) }}><i className="bi bi-wallet2"> </i> <span className="txt-saldo-saya" > Rp.{userSaldo}</span></span>
                             </div>
                             <Dropdown >
                                 <div className="dropdown-toggle-container">
@@ -92,7 +95,7 @@ const NavigationBar = () => {
                                             (userProfilePicture)
                                                 ?
                                                 <img
-                                                    src={userProfilePicture}
+                                                    src={(profilePictureUpdater === "")?userProfilePicture:profilePictureUpdater}
                                                     style={{ objectFit: "cover", backgroundColor: "black", height: "35px", width: "35px", borderRadius: "100%", cursor: "pointer", border: "solid 2px grey", marginRight: "10px" }} alt=" " />
                                                 :
                                                 <Spinner animation="border" variant="primary" />

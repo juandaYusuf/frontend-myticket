@@ -16,6 +16,10 @@ import ModalTopUp from './ModalTopUp'
 const ProfileComponent = () => {
 
   const { userID } = useContext(UserContext)
+  const { setprofilePictureUpdater } = useContext(UserContext)
+  const { refreshFullName } = useContext(UserContext)
+  const { RefreshEmail } = useContext(UserContext)
+  const { RefreshNoTelepon } = useContext(UserContext)
   const [fullName, setFullName] = useState("")
   const [email, setemail] = useState("")
   const [noTelepon, setnoTelepon] = useState("")
@@ -42,6 +46,7 @@ const ProfileComponent = () => {
         setemail(response.data.email)
         setnoTelepon(response.data.noTelepon)
         setUserProfilePicture(response.data.profilPhoto)
+        setprofilePictureUpdater(response.data.profilPhoto)
         setUserBannerPicture(response.data.profilBannerPhoto)
         setIsLoading(false)
       } else {
@@ -50,9 +55,7 @@ const ProfileComponent = () => {
     })
   }
 
-  const CloseModalWhenImageUploaded = () => {
-    setModalUpload(false)
-  }
+
 
   // !log out func & clear local storage
   const logOut = () => {
@@ -66,7 +69,7 @@ const ProfileComponent = () => {
       titleNama()
       setFullName(fullName)
       setemail(email)
-      setnoTelepon(noTelepon)
+      setnoTelepon(noTelepon) 
     }
 
     displayUserIdentity()
@@ -126,14 +129,14 @@ const ProfileComponent = () => {
                     ?
                     "Loading..."
                     :
-                    fullName
+                    (refreshFullName === "")?fullName:refreshFullName
                 }
               </span>
               <span style={{ color: "grey", fontWeight: "bold", textTransform: "lowercase", fontSize: "15px" }}>
-              <i className="bi bi-envelope-at-fill"></i> {email}
+              <i className="bi bi-envelope-at-fill"></i> { (RefreshEmail === "")? email:RefreshEmail}
               </span>
               <span style={{ color: "grey", fontSize: "15px" }}>
-              <i className="bi bi-telephone-fill"></i> {noTelepon}
+              <i className="bi bi-telephone-fill"></i> { (RefreshNoTelepon === "")?noTelepon: RefreshNoTelepon}
               </span>
               <Col>
                 <div className='btn btn-danger m-1 shadow-prev-container scale-down-animation'
@@ -235,7 +238,7 @@ const ProfileComponent = () => {
 
       <ModalUploadPhoto
         modaltitle={titleModalUpload}
-        closewhenimageuploaded={CloseModalWhenImageUploaded}
+        closewhenimageuploaded={() => setModalUpload(false)}
         show={modalUpload}
         onHide={() => setModalUpload(false)} />
 

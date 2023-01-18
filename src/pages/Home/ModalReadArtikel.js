@@ -1,5 +1,5 @@
 import React from 'react'
-import { Modal } from 'react-bootstrap';
+import { Button, Container, Modal } from 'react-bootstrap';
 
 const ModalReadArtikel = (props) => {
 
@@ -11,20 +11,29 @@ const ModalReadArtikel = (props) => {
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
                 fullscreen={true}>
-                <Modal.Header closeButton>
-                    <Modal.Title id="contained-modal-title-vcenter">
-                        {props.title}
-                    </Modal.Title>
-                </Modal.Header>
                 <Modal.Body>
-                    <img src={props.thumbnail} className='thumbnail-artikel shadow-prev-container' alt='Gambar tidak tersedia'/>
-                    <p>{props.content}
-                    </p>
+                    <Container>
+                        <div className='d-flex justify-content-center'>
+                            <h1>
+                                {props.title}
+                            </h1>
+                        </div>
+                        <img src={props.thumbnail} className='thumbnail-artikel shadow-prev-container' alt='Gambar tidak tersedia' />
+                        <p>
+                            {props.content}
+                        </p>
+                        <i className="bi bi-person-fill text-secondary"> Author: <cite title="Source Title">{props.author}</cite> </i>
+                    </Container>
                 </Modal.Body>
                 <Modal.Footer>
-                    <footer className="blockquote-footer">
-                    Author: <cite title="Source Title">{props.author}</cite>
-                    </footer>
+                    <Container className='d-flex justify-content-between'>
+                        <i className="bi bi-chat text-success" style={{ overflow: "hidden", cursor: "pointer" }}></i>
+                        <i className="bi bi-heart text-danger" style={{ overflow: "hidden", cursor: "pointer" }}></i>
+                        <i className="bi bi-heart-fill text-danger" style={{ overflow: "hidden", cursor: "pointer" }}></i>
+
+                        <i className="bi bi-send-fill text-primary" style={{ overflow: "hidden", cursor: "pointer" }}></i>
+                        <Button variant='outline-danger' onClick={props.onHide}>Close</Button>
+                    </Container>
                 </Modal.Footer>
             </Modal>
         </>

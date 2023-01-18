@@ -1030,7 +1030,7 @@ code {
 }
 
 .artikel-card {
-  max-width: 950px;
+  width: 950px;
   display: flex;
   padding: 10px;
   justify-content: center;
