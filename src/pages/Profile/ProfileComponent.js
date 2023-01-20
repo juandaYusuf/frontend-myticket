@@ -217,8 +217,7 @@ const ProfileComponent = () => {
                 <ArtikelSaya />
           }
 
-          <div className='btn btn-danger shadow-prev-container' onClick={() => { logOut() }}> <i className="bi bi-box-arrow-left"></i> LOGOUT</div>
-          <hr />
+          {/* <div className='btn btn-danger shadow-prev-container' onClick={() => { logOut() }}> <i className="bi bi-box-arrow-left"></i> LOGOUT</div> */}
           <div style={{ display: "flex", justifyContent: "end" }
           }>
             <span style={{ color: "grey", fontWeight: "bold", textAlign: "right" }}>

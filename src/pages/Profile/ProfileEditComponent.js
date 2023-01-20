@@ -236,8 +236,6 @@ function EditProfile() {
                   </Alert>
                 </span>
             }
-
-            <hr />
             <Row>
               <div className='btn btn-primary shadow-prev-container'
                 onClick={() => {

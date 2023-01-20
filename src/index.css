@@ -1089,6 +1089,11 @@ code {
   display: flex;
 }
 
+.questions-container{
+  height: 300px;
+  width: auto;
+  overflow: scroll;
+}
 
 /* responsif */
 @media only screen and (max-width: 600px) {

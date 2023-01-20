@@ -1,26 +1,27 @@
 import React, { useEffect, useState } from 'react'
 import { Alert, Button, Container, Form, Modal } from 'react-bootstrap'
+import axios from 'axios'
+import QuestionsComponent from './QuestionsComponent'
 
 const ModalTopUp = (props) => {
 
-  const [userAnswer, setUserAnswer] = useState("")
-  const [isAnswerCorrect, setIsAnswerCorrect] = useState("default")
 
-  const checkUserAnswer = () => {
-    if (userAnswer === "Ujang ngabret") {
-      console.log("Jawab anda benar")
-      setIsAnswerCorrect("correct")
-    } else {
-      setIsAnswerCorrect("inCorrect")
-    }
-  }
+  const [questions, setQestions] = useState([])
 
+
+
+
+  // !Get soal untuk saldo
   useEffect(() => {
-    if (props.show === false) {
-      setIsAnswerCorrect("default")
-      setUserAnswer("")
+    if (props.show === true) {
+      const showQuestions = () => {
+        axios.get('http://127.0.0.1:8000/questions-for-topup/').then((response) => {
+          setQestions(response.data)
+        })
+      }
+      showQuestions()
     }
-    return (() => props.show)
+    // eslint-disable-next-line
   }, [props.show])
 
 
@@ -35,7 +36,7 @@ const ModalTopUp = (props) => {
         centered>
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-          <i className="bi bi-currency-exchange"></i> TopUp
+            <i className="bi bi-currency-exchange"></i> TopUp
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -46,28 +47,20 @@ const ModalTopUp = (props) => {
           </Alert>
           <Alert variant='warning'>
             <Container className='d-flex justify-content-center'>
-              <h6>Jawab pertanyaan dibawah ini !</h6>
+              <h5 className='fw-bold'>Jawab pertanyaan dibawah ini !</h5>
             </Container>
-            <hr />
             <Form>
-              <div className="m-3">
-                <Form.Label className='fw-bold'>Siapa pembunuh munir</Form.Label>
-                <Form.Check label="Ujang ngabret" name="group1" type="radio" id={`reverse-radio-1`} value="Ujang ngabret" onChange={(e) => { setUserAnswer(e.target.value) }} />
-                <Form.Check label="Asep Rante" name="group1" type="radio" id={`reverse-radio-2`} value="Asep Rante" onChange={(e) => { setUserAnswer(e.target.value) }} />
-                <Form.Check label="Dadang Bedog" name="group1" type="radio" id={`reverse-radio-3`} value="Dadang Bedog" onChange={(e) => { setUserAnswer(e.target.value) }} />
-                <Button variant='warning mt-3' onClick={() => { checkUserAnswer() }} > Jawab </Button>
-                <div className='mt-3 isanswercorrect-container'>
-                  {
-                    (isAnswerCorrect === "correct")
-                      ?
-                      <p className='text-success typewriter-animation-1'> Selamat anda menjawab dengan tepat. Anda mendapat ~ <b>Rp.3000 ~ <i className="bi bi-check-circle-fill"> </i> </b> </p>
-                      :
-                      (isAnswerCorrect === "inCorrect")
-                        ?
-                        <p className='text-danger typewriter-animation-2'> Jawaban anda tidak tepat. Silahkan coba lagi <i className="bi bi-x-circle-fill"></i></p>
-                        : null
-                  }
-                </div>
+              <div className=" questions-container">
+                {
+                  questions.map((result) => {
+                    return (
+                      <QuestionsComponent key={result.id} soal={result.soal} id={result.id} />
+                    )
+                  })
+                }
+
+                
+
               </div>
             </Form>
           </Alert>

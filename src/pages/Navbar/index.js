@@ -49,8 +49,6 @@ const NavigationBar = () => {
         setProfileData(JSON.parse(window.localStorage.getItem('data')))
     }, [])
 
-
-
     // !SALDO
     useEffect(() => {
         const mySaldo = () => {
