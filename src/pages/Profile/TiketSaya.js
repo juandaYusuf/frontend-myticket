@@ -3,6 +3,7 @@ import TicketComponent from '../Ticket/TicketComponent'
 import EmptyPage from '../EmptyPage'
 import axios from 'axios';
 import UserContext from '../../context/Context';
+import { apiURL } from '../../Api';
 
 const TiketSaya = () => {
 
@@ -12,8 +13,7 @@ const TiketSaya = () => {
   const fromWhere = "tiketSaya"
 
   const tiketSaya = () => {
-    const apiURL = `http://127.0.0.1:8000/tiket_saya/${userID}`
-    axios.get(apiURL).then((response) => {
+    axios.get(apiURL(userID).MY_TIKET_LIST).then((response) => {
       if (response.data.length === 0) {
         setIsAvailable(false)
       } else {

@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { Button, Form, Alert } from "react-bootstrap";
+import { apiURL } from '../../Api';
+
 
 function RegisterComponent() {
 
@@ -14,7 +16,6 @@ function RegisterComponent() {
     const [AlertMessage, setAlertMessage] = useState("");
 
     const register = () => {
-        const apiURL = `http://127.0.0.1:8000/register/`
         let regData = {
             "fullname": Nama,
             "email": Email,
@@ -25,7 +26,7 @@ function RegisterComponent() {
             "profilPhoto": "",
             "profilBannerPhoto": ""
         }
-        axios.post(apiURL, regData).then((response) => {
+        axios.post(apiURL().REGISTER, regData).then((response) => {
             if (response) {
                 setNama("")
                 setEmail("")
@@ -110,20 +111,22 @@ function RegisterComponent() {
                 <Alert variant="warning">
                     <Alert.Heading>GUNAKAN IDENTITAS SEMBARANG</Alert.Heading>
                     <p>
-                        Untuk Melakukan demo gunakanlah identitas sembarang <br/> Terimakasih 🔥😎
+                        Untuk Melakukan demo gunakanlah identitas sembarang <br /> Terimakasih 🔥😎
                     </p>
                     <hr />
                     <p className="mb-0">
-                        STT Wastukencana | Tahun ajaran 2021 - 2022.
+                        UNIKOM | Tahun ajaran 2019 - 2020.
                     </p>
                 </Alert>
-                <div className="d-grid gap-2">
-                    <Button type='submit' variant="success" onClick={() => {
-                        validation()
-                    }}>
-                        Daftar
-                    </Button>
-                </div>
+                {
+                    (ShowAlert !== "berhasil")
+                    &&
+                    <div className="d-grid gap-2">
+                        <Button type='submit' variant="success" onClick={() => { validation() }}>
+                            Daftar
+                        </Button>
+                    </div>
+                }
             </div>
         </>
     )

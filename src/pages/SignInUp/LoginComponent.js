@@ -2,8 +2,8 @@ import axios from 'axios';
 import React, { useContext, useState, useEffect } from 'react'
 import { Button, Form, Alert, FloatingLabel } from "react-bootstrap"
 import UserContext from '../../context/Context';
-import { useNavigate } from "react-router-dom"
-
+import { useNavigate } from 'react-router-dom'
+import { apiURL } from '../../Api';
 
 const LoginComponent = () => {
 
@@ -24,8 +24,7 @@ const LoginComponent = () => {
             "email": getEmail,
             "password": getPwd,
         }
-        const apiURL = `http://127.0.0.1:8000/login/`
-        await axios.post(apiURL, userData).then((response) => {
+        await axios.post(apiURL().LOGIN, userData).then((response) => {
             if (response.data !== null) {
                 setUserID(response.data.id)
             } else {
@@ -123,8 +122,8 @@ const LoginComponent = () => {
                         </FloatingLabel>
                     </Form.Group>
                     <Alert variant="warning">
-                        Informatika-
-                        <Alert.Link href="https://www.stt-wastukancana.ac.id/">STT Wastukencana</Alert.Link>.
+                        Sistem informasi -
+                        <Alert.Link href="https://www.unikom.ac.id/"> UNIKOM</Alert.Link> Bandung.
                     </Alert>
                     <div className="d-grid gap-2">
                         <Button variant="success" onClick={() => dataChecker()}>

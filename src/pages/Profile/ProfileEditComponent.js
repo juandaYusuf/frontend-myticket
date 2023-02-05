@@ -1,8 +1,10 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'
 import { Form, Col, Row, Alert } from "react-bootstrap"
+import { apiURL } from '../../Api';
 import UserContext from '../../context/Context';
 import ModalUploadPhoto from './MoodalUploadPhoto';
+
 
 function EditProfile() {
 
@@ -23,7 +25,7 @@ function EditProfile() {
 
 
   const profileUser = () => {
-    axios.get(`http://127.0.0.1:8000/profile/${userID}`).then((response) => {
+    axios.get(apiURL(userID).PROFILE_USER_DATA).then((response) => {
       setFullName(response.data.fullname)
       setEmail(response.data.email)
       setAlamat(response.data.alamat)
@@ -57,7 +59,7 @@ function EditProfile() {
 
   
   const refreshName = () => {
-    axios.get(`http://127.0.0.1:8000/profile/${userID}`).then((response) => {
+    axios.get(apiURL(userID).PROFILE_USER_DATA).then((response) => {
       setFullName(response.data.fullname)
       setEmail(response.data.email)
       setNoTelepon(response.data.noTelepon)
@@ -69,7 +71,7 @@ function EditProfile() {
 
 
   const updateData = () => {
-    axios.put(`http://127.0.0.1:8000/update/${userID}`, {
+    axios.put(apiURL(userID).UPDATE_PROFILE_USER_DATA, {
       "fullname": fullName,
       "email": email,
       "alamat": alamat,

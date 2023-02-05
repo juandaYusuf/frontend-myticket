@@ -2,6 +2,7 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { Modal, Button, Form, Alert, InputGroup } from "react-bootstrap";
 import UserContext from "../../context/Context";
+import { apiURL } from "../../Api";
 
 const ModalUploadPhoto = (props) => {
 
@@ -54,8 +55,7 @@ const ModalUploadPhoto = (props) => {
     }
 
     const changePassword = () => {
-        const apiURL = `http://127.0.0.1:8000/changepassword/${userID}`
-        axios.put(apiURL, {
+        axios.put(apiURL(userID).CHANGE_PASSWORD, {
             "password": confirmNewPassword
         }).then((response) => {
             if (response.data !== null) {
@@ -72,7 +72,7 @@ const ModalUploadPhoto = (props) => {
         bodyFormData.append("image", uploadImage)
         axios({
             method: "post",
-            url: `http://127.0.0.1:8000/image/`,
+            url: apiURL().UPLOAD_IMAGE,
             data: bodyFormData,
             headers: { "Content-Type": "multipart/form-data" },
         })
@@ -90,7 +90,7 @@ const ModalUploadPhoto = (props) => {
         bodyFormData.append("image", uploadImage)
         axios({
             method: "post",
-            url: `http://127.0.0.1:8000/image/`,
+            url: apiURL().UPLOAD_IMAGE,
             data: bodyFormData,
             headers: { "Content-Type": "multipart/form-data" },
         })
@@ -104,13 +104,12 @@ const ModalUploadPhoto = (props) => {
             });
     }
 
-    // !Apply to database user (Profile)
+    // !Apply to database user (Profile image link) 
     const updateProfilePictureHandling = () => {
-        const apiURL = `http://127.0.0.1:8000/profile_picture/${userID}`
         const data = {
             "profilPhoto": profilePicture
         }
-        axios.put(apiURL, data)
+        axios.put(apiURL(userID).UPDATE_PROFILE_PICTURE, data)
             .then((response) => {
                 if (response.data) {
                     props.closewhenimageuploaded()
@@ -125,11 +124,10 @@ const ModalUploadPhoto = (props) => {
 
     // !Apply to database user (Banner)
     const updateBannerPictureHandling = () => {
-        const apiURL = `http://127.0.0.1:8000/banner_picture/${userID}`
         const data = {
             "profilBannerPhoto": bannerPicture
         }
-        axios.put(apiURL, data)
+        axios.put(apiURL(userID).UPDATE_PROFILE_BANNER, data)
             .then((response) => {
                 if (response.data) {
                     props.closewhenimageuploaded()
@@ -162,8 +160,7 @@ const ModalUploadPhoto = (props) => {
     }
 
     const checkPwdByID = () => {
-        const apiURL = "http://127.0.0.1:8000/checkcurrentpassword/"
-        axios.post(apiURL, {
+        axios.post(apiURL().CHECK_USER_PASSWORD, {
             "id": userID,
             "password": currentPwd
         }).then((response) => {
@@ -202,7 +199,7 @@ const ModalUploadPhoto = (props) => {
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
                 backdrop="static"
-                style={{backdropFilter: "blur(30px)"}}>
+                style={{ backdropFilter: "blur(30px)" }}>
                 <Modal.Header closeButton onHide={() => {
                     setImage("")
                     setFileTypeHandling(true)

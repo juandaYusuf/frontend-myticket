@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom"
 import UserContext from "../../context/Context"
 import ModalSaldo from "../Profile/ModalSaldo"
 import ModalConfirmLogout from "./ModalConfirmLogout"
+import { apiURL } from "../../Api"
 
 const NavigationBar = () => {
 
@@ -21,16 +22,13 @@ const NavigationBar = () => {
     const navigateTo = useNavigate()
 
     const titleNama = () => {
-        const apiURL = `http://127.0.0.1:8000/profile/${profileData}`
-        axios.get(apiURL).then((response) => {
+        axios.get(apiURL(profileData).PROFILE_USER_DATA).then((response) => {
             if (response.data !== null) {
                 setUserProfilePicture(response.data.profilPhoto)
                 setfullName(response.data.fullname)
             }
         })
     }
-
-
 
     const onClickProfile = () => {
         navigateTo('/Profile')
@@ -52,8 +50,7 @@ const NavigationBar = () => {
     // !SALDO
     useEffect(() => {
         const mySaldo = () => {
-            const apiURL = `http://127.0.0.1:8000/saldo/?userID=${userID}`
-            axios.get(apiURL).then((response) => {
+            axios.get(apiURL(userID).USER_SALDO_CHECKER).then((response) => {
                 if (response.data !== null) {
                     setUserSaldo(response.data.saldo)
                 }
@@ -80,6 +77,7 @@ const NavigationBar = () => {
                             <Link style={{ color: "black" }} to="/Home" className="nav-link"> <span> <i className="bi bi-house-fill"></i> Home </span> </Link>
                             <Link style={{ color: "black" }} to="/Ticket" className="nav-link"> <span><i className="bi bi-ticket-detailed-fill"></i> Tiket</span></Link>
                             <Link style={{ color: "black" }} to="/Profile" className="nav-link"> <span><i className="bi bi-person-fill"></i> Profile</span></Link>
+                            <Link style={{ color: "black" }} to="/Chat" className="nav-link"> <span><i className="bi bi-person-fill"></i> Chat</span></Link>
                             {/* <Link style={{ color: "white" }} to="/About" className="nav-link">About</Link> */}
                         </Nav>
                         <Nav>
@@ -88,24 +86,22 @@ const NavigationBar = () => {
                             </div>
                             <Dropdown >
                                 <div className="dropdown-toggle-container">
-                                    <Dropdown.Toggle variant="" id="dropdown-basic">
-                                        {
-                                            (userProfilePicture)
-                                                ?
-                                                <img
-                                                    src={(profilePictureUpdater === "")?userProfilePicture:profilePictureUpdater}
-                                                    style={{ objectFit: "cover", backgroundColor: "black", height: "35px", width: "35px", borderRadius: "100%", cursor: "pointer", border: "solid 2px grey", marginRight: "10px" }} alt=" " />
-                                                :
-                                                <Spinner animation="border" variant="primary" />
-                                        }
-                                        <span className="username-on-navbar">
+                                    <Dropdown.Toggle variant="" id="dropdown-basic" bsPrefix="px-3">
+                                        <div className="d-flex align-items-center gap-2">
                                             {
-                                                fullName
+                                                (userProfilePicture)
+                                                    ?
+                                                    <div style={{ height: "35px", width: "35px", backgroundColor: "grey", borderRadius: "100%", marginLeft: "13px" }}>
+                                                        <img src={(profilePictureUpdater === "") ? userProfilePicture : profilePictureUpdater} style={{ objectFit: "cover", backgroundColor: "grey", height: "35px", width: "35px", borderRadius: "100%", cursor: "pointer", border: "solid 2px grey" }} alt=" " />
+                                                    </div>
+                                                    :
+                                                    <Spinner animation="border" variant="primary" />
                                             }
-                                        </span>
+                                            <span className="username-on-navbar">{fullName}</span>
+                                        </div>
                                     </Dropdown.Toggle>
                                 </div>
-                                <Dropdown.Menu style={{ padding: "0px 2px 2px 2px" }} className='scaled-transition shadow-prev-container'>
+                                <Dropdown.Menu align="end" style={{ padding: "0px 2px 2px 2px" }} className='scaled-transition shadow-prev-container'>
                                     <Dropdown.Item onClick={() => { onClickProfile() }}> <i className="bi bi-person-fill"></i> Profile </Dropdown.Item>
                                     <Dropdown.Item style={{ backgroundColor: "rgb(220, 53, 69)", color: "white", borderRadius: "5px" }} onClick={() => { setModalShow(true) }}> <i className="bi bi-box-arrow-left"></i> Logout </Dropdown.Item>
                                 </Dropdown.Menu>

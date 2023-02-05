@@ -15,7 +15,6 @@ export const UserContextProvider = (props) => {
 
     useEffect(() => {
         setUserID(JSON.parse(window.localStorage.getItem('data')))
-
         // eslint-disable-next-line
     }, [])
 
@@ -39,7 +38,7 @@ export const UserContextProvider = (props) => {
             setRefreshFullName,
             RefreshEmail,
             setRefreshEmail,
-            RefreshNoTelepon, 
+            RefreshNoTelepon,
             setRefreshNoTelepon
         }}>
             {props.children}

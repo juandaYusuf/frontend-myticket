@@ -2,20 +2,17 @@ import React, { useEffect, useState } from 'react'
 import { Alert, Button, Container, Form, Modal } from 'react-bootstrap'
 import axios from 'axios'
 import QuestionsComponent from './QuestionsComponent'
+import { apiURL } from '../../Api'
 
 const ModalTopUp = (props) => {
 
-
   const [questions, setQestions] = useState([])
-
-
-
 
   // !Get soal untuk saldo
   useEffect(() => {
     if (props.show === true) {
       const showQuestions = () => {
-        axios.get('http://127.0.0.1:8000/questions-for-topup/').then((response) => {
+        axios.get(apiURL().QUESTIONS_FOR_TOPUP).then((response) => {
           setQestions(response.data)
         })
       }
@@ -23,7 +20,6 @@ const ModalTopUp = (props) => {
     }
     // eslint-disable-next-line
   }, [props.show])
-
 
   return (
     <>
@@ -58,9 +54,6 @@ const ModalTopUp = (props) => {
                     )
                   })
                 }
-
-                
-
               </div>
             </Form>
           </Alert>

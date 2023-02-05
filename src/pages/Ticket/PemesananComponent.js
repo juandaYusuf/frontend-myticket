@@ -3,6 +3,7 @@ import { useState } from "react"
 import axios from 'axios'
 import { Form, Button, Alert, Col, FloatingLabel, Row } from "react-bootstrap"
 import TicketComponent from './TicketComponent';
+import { apiURL } from '../../Api';
 
 function PemesananComponent() {
 
@@ -24,14 +25,12 @@ function PemesananComponent() {
     const [optionsStsTujuan, setOptionsStsTujuan] = useState([])
     const [optionsStsAsal, setOptionsStsAsal] = useState("")
 
-
     // Date formating
     let d = new Date()
     let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d)
     let mo = new Intl.DateTimeFormat('en', { month: 'numeric' }).format(d)
     let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d)
     // console.log(`${ye}-${mo}-${da}`);
-
 
     const formValidation = () => {
         if (getAsalStasiun === "" || getAsalStasiun === "Pilih stasiun asal") {
@@ -49,25 +48,23 @@ function PemesananComponent() {
     }
 
     const optionDataStsTujuan = () => {
-        axios.get(`http://127.0.0.1:8000/show_tiket/`).then((response) => {
+        axios.get(apiURL().TIKET_STASIUN).then((response) => {
             setOptionsStsTujuan(response.data)
         })
     }
 
-    
     const optionDataStsAsal = () => {
-        axios.get(`http://127.0.0.1:8000/show_tiket/`).then((response) => {
+        axios.get(apiURL().TIKET_STASIUN).then((response) => {
             setOptionsStsAsal(response.data[0].stasiun_asal)
         })
     }
 
     const getTiket = () => {
-        const apiURL = `http://127.0.0.1:8000/order_tiket/`
         const data = {
             stasiun_asal: getAsalStasiun,
             stasiun_tujuan: getStasiunTujuan
         }
-        axios.post(apiURL, data).then((response) => {
+        axios.post(apiURL().ORDER_TIKET, data).then((response) => {
             if (response.data) {
                 setTiketID(response.data.id)
                 setNamaKereta(response.data.nama_kereta)
@@ -126,7 +123,6 @@ function PemesananComponent() {
                         </Button>
                     </Row>
                 </div>
-
                 <div className='Alert-layout'>
                     {
                         (getShowAlert === true)

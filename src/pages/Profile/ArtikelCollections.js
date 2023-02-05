@@ -5,6 +5,7 @@ import UserContext from '../../context/Context'
 import ModalUpdateArtikel from './ModalUpdateArtikel'
 import EmptyPage from '../EmptyPage'
 import ModalDeleteArtikel from './ModalDeleteArtikel'
+import { apiURL } from '../../Api'
 
 const ArtikelCollections = () => {
     const { userID } = useContext(UserContext)
@@ -36,8 +37,7 @@ const ArtikelCollections = () => {
     }
 
     const getMyArtikel = () => {
-        const apiURL = `http://127.0.0.1:8000/artikel_of_user/${userID}`
-        axios.get(apiURL).then((response) => {
+        axios.get(apiURL(userID).MY_ARTIKEL).then((response) => {
             if (!response.data) {
                 setIsLoading(true)
             } else {
@@ -55,9 +55,8 @@ const ArtikelCollections = () => {
         getMyArtikel()
     }
 
-    const getUser = () => {
-        const apiURL = `http://127.0.0.1:8000/profile/${userID}`
-        axios.get(apiURL).then((response) => {
+    const authorOfArtikel = () => {
+        axios.get(apiURL(userID).PROFILE_USER_DATA).then((response) => {
             if (!response.data) {
                 setIsLoading(true)
             } else {
@@ -67,12 +66,11 @@ const ArtikelCollections = () => {
     }
 
     const deleteArtikel = () => {
-        const apiURL = `http://127.0.0.1:8000/delete_artikel/${artikelID}/${userIDOfArtikel}`
         const data = {
             id: artikelID,
             user_id: userIDOfArtikel
         }
-        axios.delete(apiURL, data).then((response) => {
+        axios.delete(apiURL(artikelID, userIDOfArtikel).DELETE_ARTIKEL, data).then((response) => {
             if (response) {
                 getMyArtikel()
                 setShowFloatingAlert(true)
@@ -98,7 +96,7 @@ const ArtikelCollections = () => {
     }, []);
 
     useEffect(() => {
-        getUser()
+        authorOfArtikel()
         // eslint-disable-next-line
     }, []);
 

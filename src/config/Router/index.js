@@ -1,18 +1,8 @@
 import React from 'react'
-import {
-  GetStart,
-  SignInUp,
-  Ticket,
-  Home,
-  Profile,
-  About,
-} from '../../pages'
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route
-} from 'react-router-dom'
+import { GetStart, SignInUp, Ticket, Home, Profile, About, } from '../../pages'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import ProtectedRoutes from '../ProtectedRoutes'
+import ChatPage from '../../pages/ChatPage'
 
 
 const Routs = () => {
@@ -33,6 +23,7 @@ const Routs = () => {
             <Route path='Home' element={<Home />} />
             <Route path='Ticket' element={<Ticket />} />
             <Route path='Profile' element={<Profile />} />
+            <Route path='Chat' element={<ChatPage />} />
             <Route path='About' element={<About />} />
           </Route>
         </Routes>

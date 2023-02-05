@@ -5,12 +5,12 @@ import axios from 'axios'
 import TiketSaya from './TiketSaya'
 import EditProfile from './ProfileEditComponent'
 import ModalUploadPhoto from './MoodalUploadPhoto'
-import { useNavigate } from 'react-router-dom'
 import ArtikelSaya from './ArtikelSaya'
 import ModalUpdateArtikel from './ModalUpdateArtikel'
 import { Col } from 'react-bootstrap'
 import ModalSaldo from './ModalSaldo'
 import ModalTopUp from './ModalTopUp'
+import { apiURL } from '../../Api';
 
 
 const ProfileComponent = () => {
@@ -35,12 +35,10 @@ const ProfileComponent = () => {
   const [modalShowTopUp, setmodalShowTopUp] = useState(false)
   const [showThumnail, setShowThumnail] = useState("thumbnail")
   const [previewImage, setPreviewImage] = useState("")
-  const navigateTo = useNavigate()
 
   //! Get user by ID 
   const titleNama = () => {
-    const apiURL = `http://127.0.0.1:8000/profile/${userID}`
-    axios.get(apiURL).then((response) => {
+    axios.get(apiURL(userID).PROFILE_USER_DATA).then((response) => {
       if (response.data !== null) {
         setFullName(response.data.fullname)
         setemail(response.data.email)
@@ -55,32 +53,18 @@ const ProfileComponent = () => {
     })
   }
 
-
-
-  // !log out func & clear local storage
-  const logOut = () => {
-    window.localStorage.clear()
-    navigateTo('/SignInUp')
-  }
-
   //!call profile title name 
   useEffect(() => {
     const displayUserIdentity = () => {
       titleNama()
       setFullName(fullName)
       setemail(email)
-      setnoTelepon(noTelepon) 
+      setnoTelepon(noTelepon)
     }
 
     displayUserIdentity()
     // eslint-disable-next-line
   }, [titleNama, setFullName, setemail, setnoTelepon])
-
-  //! Load data from local storage
-  // useEffect(() => {
-  //   setUserID(JSON.parse(window.localStorage.getItem('data')))
-  //   // eslint-disable-next-line
-  // }, []);
 
   return (
     <>
@@ -129,14 +113,14 @@ const ProfileComponent = () => {
                     ?
                     "Loading..."
                     :
-                    (refreshFullName === "")?fullName:refreshFullName
+                    (refreshFullName === "") ? fullName : refreshFullName
                 }
               </span>
               <span style={{ color: "grey", fontWeight: "bold", textTransform: "lowercase", fontSize: "15px" }}>
-              <i className="bi bi-envelope-at-fill"></i> { (RefreshEmail === "")? email:RefreshEmail}
+                <i className="bi bi-envelope-at-fill"></i> {(RefreshEmail === "") ? email : RefreshEmail}
               </span>
               <span style={{ color: "grey", fontSize: "15px" }}>
-              <i className="bi bi-telephone-fill"></i> { (RefreshNoTelepon === "")?noTelepon: RefreshNoTelepon}
+                <i className="bi bi-telephone-fill"></i> {(RefreshNoTelepon === "") ? noTelepon : RefreshNoTelepon}
               </span>
               <Col>
                 <div className='btn btn-danger m-1 shadow-prev-container scale-down-animation'
@@ -158,7 +142,7 @@ const ProfileComponent = () => {
             setisEditProfile('editProfile')
             setmenuTitle("EDIT PROFILE")
           }}>
-            Edit Profile 
+            Edit Profile
           </div>
 
           <div className='menu-tiket shadow-prev-container' onClick={() => {
@@ -181,24 +165,24 @@ const ProfileComponent = () => {
             <h1 style={{ color: "grey", fontWeight: "bold" }}>
               {
                 (menuTitle === "EDIT PROFILE")
-                ?
-                <span>
-                  <i className="bi bi-pencil-square"></i> {menuTitle}
-                </span>
-                : 
-                (menuTitle === "TIKET SAYA")
-                ?
+                  ?
                   <span>
-                    <i className="bi bi-ticket-detailed"></i> {menuTitle}
+                    <i className="bi bi-pencil-square"></i> {menuTitle}
                   </span>
-                :
-                (menuTitle === "ARTIKEL SAYA")
-                ?
-                  <span>
-                    <i className="bi bi-stickies"></i> {menuTitle}
-                  </span>
-                :null
-              
+                  :
+                  (menuTitle === "TIKET SAYA")
+                    ?
+                    <span>
+                      <i className="bi bi-ticket-detailed"></i> {menuTitle}
+                    </span>
+                    :
+                    (menuTitle === "ARTIKEL SAYA")
+                      ?
+                      <span>
+                        <i className="bi bi-stickies"></i> {menuTitle}
+                      </span>
+                      : null
+
               }
             </h1>
           </div>
@@ -216,8 +200,6 @@ const ProfileComponent = () => {
                 &&
                 <ArtikelSaya />
           }
-
-          {/* <div className='btn btn-danger shadow-prev-container' onClick={() => { logOut() }}> <i className="bi bi-box-arrow-left"></i> LOGOUT</div> */}
           <div style={{ display: "flex", justifyContent: "end" }
           }>
             <span style={{ color: "grey", fontWeight: "bold", textAlign: "right" }}>
@@ -251,9 +233,9 @@ const ProfileComponent = () => {
         show={modalShowSaldo}
         onHide={() => setModalShowSaldo(false)} />
 
-        <ModalTopUp
-          show={modalShowTopUp}
-          onHide={() => setmodalShowTopUp(false)}/>
+      <ModalTopUp
+        show={modalShowTopUp}
+        onHide={() => setmodalShowTopUp(false)} />
     </>
   )
 }

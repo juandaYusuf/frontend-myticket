@@ -2,6 +2,8 @@ import axios from 'axios'
 import React, { useContext, useEffect, useState } from 'react'
 import { Alert, Button } from 'react-bootstrap'
 import UserContext from '../../context/Context'
+import ModalTopUp from '../Profile/ModalTopUp'
+import { apiURL } from '../../Api'
 
 
 const TicketComponent = (props) => {
@@ -18,42 +20,37 @@ const TicketComponent = (props) => {
     const [owner, setOwner] = useState("")
     const [waktuTiba, setWaktuTiba] = useState("")
     const [isTicketSold, setIsTicketSold] = useState("")
-    const [updateUserSaldo, setUpdateUserSaldo] = useState(0)
+    const [modalShowTopUp, setmodalShowTopUp] = useState(false)
 
     const beliTiket = () => {
         let userSaldo = 0
         let userSaldoIfMinus = 0
-        const apiUrlPembelian = `http://127.0.0.1:8000/pembelian_tiket/`
-        const apiUrlUserSaldo = `http://127.0.0.1:8000/saldo/?userID=${userID}`
-        const apiUrlUpdateSaldo = `http://127.0.0.1:8000/topup/${userID}/${updateUserSaldo}`
         const dataPembelian = {
             "user_id": userID,
             "tiket_id": props.tiketid,
             "tanggal": props.datebuy
         }
-            // check user saldo
-            axios.get(apiUrlUserSaldo).then((response) => {
-                userSaldo = response.data.saldo - 8000
-                userSaldoIfMinus = response.data.saldo
-                if (userSaldo < 0) {
-                    console.log("Saldo anda tidak cukup", userSaldo)
-                    setUserSaldo(userSaldoIfMinus)
-                    setIsTicketSold("failed")
-                } else {
-                    axios.post(apiUrlUpdateSaldo).then(() => {
-                        setUserSaldo(userSaldo)
-                        setUpdateUserSaldo(userSaldo)
-                        axios.post(apiUrlPembelian, dataPembelian).then(() => {
-                            console.log("Pembelian berhasil")
-                            setIsTicketSold("success")
-                        })
+        // check user saldo
+        axios.get(apiURL(userID).USER_SALDO_CHECKER).then((response) => {
+            userSaldo = response.data.saldo - 8000
+            userSaldoIfMinus = response.data.saldo
+            if (userSaldo < 0) {
+                setUserSaldo(userSaldoIfMinus)
+                setIsTicketSold("failed")
+            } else {
+                axios.post(apiURL(userID, userSaldo).UPDATE_USER_SALDO).then(() => {
+                    setUserSaldo(userSaldo)
+                    axios.post(apiURL().BUY_TIKET, dataPembelian).then(() => {
+                        setIsTicketSold("success")
                     })
-                }
-            })
+                })
+            }
+        })
     }
 
     const showTiketSaya = () => {
-        axios.get(`http://127.0.0.1:8000/bought_tiket/${mytiketID}`).then((response) => {
+        //  Tiket yang akan ditampilkan pada profile masing-masing user
+        axios.get(apiURL(mytiketID).TIKET_PURCHASED_BY_USER).then((response) => {
             setNamaKereta(response.data[0].nama_kereta)
             setJumlahGerbong(response.data[0].jumlah_gerbong)
             setKelasKereta(response.data[0].kelas)
@@ -65,8 +62,8 @@ const TicketComponent = (props) => {
         })
     }
 
-    const getAuthor = () => {
-        axios.get(`http://127.0.0.1:8000/profile/${userID}`).then((response) => {
+    const tiketOwner = () => {
+        axios.get(apiURL(userID).PROFILE_USER_DATA).then((response) => {
             setOwner(response.data.fullname)
         })
     }
@@ -74,7 +71,7 @@ const TicketComponent = (props) => {
     useEffect(() => {
         if (props.fromwhere === "tiketSaya") {
             showTiketSaya()
-            getAuthor()
+            tiketOwner()
         }
         setMytiketID(props.mytiketid)
         // eslint-disable-next-line
@@ -84,13 +81,13 @@ const TicketComponent = (props) => {
     return (
         <>
             {
-                (isTicketSold === "berhasil")
-                ?
-                <Alert variant='success'> <b>Pembelian tiket berhasil !</b> <br /> Silahkan lihat pada halaman profile</Alert>
-                :
-                (isTicketSold === "failed")
-                &&
-                <Alert variant='danger'> <b>Pembelian tiket gagal !</b> <br /> Silahkan topup pada halaman profile</Alert>
+                (isTicketSold === "success")
+                    ?
+                    <Alert variant='success'> <b>Pembelian tiket berhasil !</b> <br /> Silahkan lihat pada halaman profile</Alert>
+                    :
+                    (isTicketSold === "failed")
+                    &&
+                    <Alert variant='danger'> <b>Pembelian tiket gagal !</b> <hr />Saldo anda tidak mencukupi. <br /> Silahkan <span className='change-cursor text-primary' onClick={() => { setmodalShowTopUp(true)}}>topup</span> pada halaman profile</Alert>
             }
             {
                 (props.fromwhere === "pemesanan")
@@ -161,6 +158,10 @@ const TicketComponent = (props) => {
                     </div>
                 </div>
             }
+
+            <ModalTopUp
+                show={modalShowTopUp}
+                onHide={() => setmodalShowTopUp(false)} />
         </>
     )
 }

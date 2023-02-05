@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Button, Col, Collapse, FloatingLabel, Form, Alert } from 'react-bootstrap'
 import axios from 'axios'
 import UserContext from '../../context/Context'
+import { apiURL } from '../../Api'
 
 const CreateArtikel = () => {
 
@@ -32,14 +33,13 @@ const CreateArtikel = () => {
     }
 
     const postNewArtikel = () => {
-        const apiURL = `http://127.0.0.1:8000/post_artikel/${userID}`
         const data = {
             user_id: userID,
             title: titleArtikel,
             isi: contentArtikel,
         }
         if (titleArtikel !== "" && contentArtikel !== "") {
-            axios.post(apiURL, data).then((response) => {
+            axios.post(apiURL(userID).POST_NEW_ARTIKEL, data).then((response) => {
                 if (response) {
                     setshowFormUpload(true)
                     setArtikelID(response.data.id)
@@ -79,7 +79,7 @@ const CreateArtikel = () => {
         bodyFormData.append("image", uploadImage)
         axios({
             method: "post",
-            url: `http://127.0.0.1:8000/image/`,
+            url: apiURL().UPLOAD_IMAGE,
             data: bodyFormData,
             headers: { "Content-Type": "multipart/form-data" },
         }).then((response) => {
@@ -91,14 +91,12 @@ const CreateArtikel = () => {
         })
     }
 
-
     // !Apply to database artikel
     const updateThumbnailArtikel = () => {
-        const apiURL = `http://127.0.0.1:8000/update_thumbnail_artikel/${artikelID}/${userIDOfArtikel}`
         const data = {
             "thumbnail": thumbnailArtikel
         }
-        axios.put(apiURL, data)
+        axios.put(apiURL(artikelID, userIDOfArtikel).UPDATE_THUMBNAIL_ARTIKEL, data)
             .then((response) => {
                 if (response.data) {
                     setChangeButtonTheme("success")

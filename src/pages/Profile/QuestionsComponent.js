@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useContext, useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import UserContext from '../../context/Context'
+import { apiURL } from '../../Api'
 
 const QuestionsComponent = (props) => {
 
@@ -183,14 +184,14 @@ const QuestionsComponent = (props) => {
             "correct_answer": userAnswer
         }
         // cek jawaban user
-        axios.post('http://127.0.0.1:8000/questions-for-topup/answer-checker', answerCheckerData).then((response) => {
+        axios.post(apiURL().QUESTIONS_ANSWER_CHECKER, answerCheckerData).then((response) => {
             if (response.data === "correct") {
                 //cek saldo user sebelumnya
-                axios.get(`http://127.0.0.1:8000/saldo/?userID=${userID}`).then((response) => {
+                axios.get(apiURL(userID).USER_SALDO_CHECKER).then((response) => {
                     userSaldo = parseInt(response.data.saldo) + 3000 // menambahkan usersaldo berdasarkan jawaban benar(1 jawaban benar += 3000)
                     if(userSaldo !== 0){
                         // update userSaldo
-                        axios.post(`http://127.0.0.1:8000/topup/${userID}/${userSaldo}`).then(() => {
+                        axios.post(apiURL(userID, userSaldo).UPDATE_USER_SALDO).then(() => {
                             setIsAnswerCorrect("correct")
                             setDisabled(true)
                             setUserSaldo(userSaldo)

@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Modal, Button, Form, Alert } from 'react-bootstrap'
+import { apiURL } from '../../Api'
 
 const ModalUpdateArtikel = (props) => {
 
@@ -14,12 +15,11 @@ const ModalUpdateArtikel = (props) => {
 
 
     const updateArtikel = () => {
-        const apiURL = `http://127.0.0.1:8000/update_artikel/${props.artikelid}/${props.useridofartikel}`
         let data = {
             "title": judulArtikel,
             "isi": contentArtikel,
         }
-        axios.put(apiURL, data).then((response) => {
+        axios.put(apiURL(props.artikelid, props.useridofartikel).UPDATE_ARTIKEL, data).then((response) => {
             if (response) {
                 props.closewhenartikelupdate()
             }
@@ -54,7 +54,7 @@ const ModalUpdateArtikel = (props) => {
         bodyFormData.append("image", uploadImage)
         axios({
             method: "post",
-            url: `http://127.0.0.1:8000/image/`,
+            url: apiURL().UPLOAD_IMAGE,
             data: bodyFormData,
             headers: { "Content-Type": "multipart/form-data" },
         }).then((response) => {
@@ -69,11 +69,10 @@ const ModalUpdateArtikel = (props) => {
 
     // !Apply to database artikel
     const updateThumbnailArtikel = () => {
-        const apiURL = `http://127.0.0.1:8000/update_thumbnail_artikel/${props.artikelid}/${props.useridofartikel}`
         const data = {
             "thumbnail": thumbnailArtikel
         }
-        axios.put(apiURL, data)
+        axios.put(apiURL(props.artikelid, props.useridofartikel).UPDATE_THUMBNAIL_ARTIKEL, data)
             .then((response) => {
                 if (response.data) {
                     setChangeButtonTheme("success")
