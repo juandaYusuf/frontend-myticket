@@ -35,12 +35,8 @@ const Home = () => {
         })
     }
 
-
-
     useEffect(() => {
         getAllArtikel()
-
-        console.log("userIdOfArtikelSelected=> ",userIdOfArtikelSelected)
     }, [])
 
     return (

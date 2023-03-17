@@ -77,7 +77,7 @@ const NavigationBar = () => {
                             <Link style={{ color: "black" }} to="/Home" className="nav-link"> <span> <i className="bi bi-house-fill"></i> Home </span> </Link>
                             <Link style={{ color: "black" }} to="/Ticket" className="nav-link"> <span><i className="bi bi-ticket-detailed-fill"></i> Tiket</span></Link>
                             <Link style={{ color: "black" }} to="/Profile" className="nav-link"> <span><i className="bi bi-person-fill"></i> Profile</span></Link>
-                            <Link style={{ color: "black" }} to="/Chat" className="nav-link"> <span><i className="bi bi-person-fill"></i> Chat</span></Link>
+                            {/* <Link style={{ color: "black" }} to="/Chat" className="nav-link"> <span><i className="bi bi-person-fill"></i> Chat</span></Link> */}
                             {/* <Link style={{ color: "white" }} to="/About" className="nav-link">About</Link> */}
                         </Nav>
                         <Nav>

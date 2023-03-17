@@ -33,6 +33,7 @@ export const apiURL = (data1, data2) => {
         DELETE_COMMENT_PUBLIC       : `http://127.0.0.1:8000/delet-comment-public/${data1}`,
         SHOW_ALL_ARTIKEL            : "http://127.0.0.1:8000/artikelall/",
         BUY_TIKET                   : "http://127.0.0.1:8000/pembelian_tiket/",
-        TIKET_PURCHASED_BY_USER     : `http://127.0.0.1:8000/bought_tiket/${data1}`
+        TIKET_PURCHASED_BY_USER     : `http://127.0.0.1:8000/bought_tiket/${data1}`,
+        CHAT_WEBSOCKET              : `ws://127.0.0.1:8000/chat/${data1}`
     }
 }
